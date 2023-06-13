@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Club Create</title>
+</head>
+<body>
+<main class="flex-shrink-0">
+
+  <!-- Page Content-->
+  <section layout:fragment="body" class="py-5">
+    <div class="container">
+      <form role="form" method="post" th:action="@{/events/{eventId}/edit(eventId=${eventId})}" th:object="${event}">
+        <input type="hidden" th:field="*{eventId}">
+        <div class="form-row">
+          <div class="form-group col-md6">
+            <label for="eventName">Event Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    name="eventName"
+                    th:field="*{eventName}"
+                    placeholder="Name for your Event">
+            <p th:if="${#fields.hasErrors('eventName')}" class="text-danger" th:errors="*{eventName}"></p>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="eventPhotoUrl">Event Image</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="eventPhotoUrl"
+                    name="eventPhotoUrl"
+                    th:field="*{eventPhotoUrl}"
+                    placeholder="URL for a Cover Photo">
+            <p th:if="${#fields.hasErrors('eventPhotoUrl')}" class="text-danger" th:errors="*{eventPhotoUrl}"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="eventDescription">Describe Your Event</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="eventDescription"
+                    name="eventDescription"
+                    th:field="*{eventDescription}"
+                    placeholder="Describe What Movies You'll be watching">
+            <p th:if="${#fields.hasErrors('eventDescription')}" class="text-danger" th:errors="*{eventDescription}"></p>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="eventStartTime">Event Start Time</label>
+            <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="eventStartTime"
+                    name="eventStartTime"
+                    th:field="*{eventStartTime}"
+                    placeholder="Start Time">
+            <p th:if="${#fields.hasErrors('eventStartTime')}" class="text-danger" th:errors="*{eventStartTime}"></p>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="eventEndTime">Event End Time</label>
+            <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="eventEndTime"
+                    name="eventEndTime"
+                    th:field="*{eventEndTime}"
+                    placeholder="End Time ">
+            <p th:if="${#fields.hasErrors('eventEndTime')}" class="text-danger" th:errors="*{eventEndTime}"></p>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+<!-- Footer-->
+
+</body>
+</html>

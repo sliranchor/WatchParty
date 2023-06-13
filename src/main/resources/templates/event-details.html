@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Club Create</title>
+</head>
+<body>
+<main class="flex-shrink-0">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+      <a class="navbar-brand" href="index.html">Watch Party!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome!</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+              <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
+              <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
+              <li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>
+              <li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Content-->
+  <section layout:fragment="body">
+    <header class="py-5 bg-light border-bottom mb-4">
+      <div class="container">
+        <div class="text-center my-5">
+          <h1 class="fw-bolder" th:text="${event.eventName}"></h1>
+          <p class="lead mb-0"></p>
+        </div>
+      </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+      <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+          <!-- Featured blog post-->
+          <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" th:src="${event.eventPhotoUrl}" alt="..." /></a>
+            <div class="card-body">
+              <div class="small text-muted" th:text="${event.eventCreatedOn}"></div>
+              <h2 class="card-title">About this Event</h2>
+              <p class="card-text" th:text="${event.eventDescription}"></p>
+              <a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId=${event.eventId})}">>Delete</a>
+            </div>
+          </div>
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+          <!-- Search widget-->
+          <div class="card mb-4">
+            <div class="card-header">Search</div>
+            <div class="card-body">
+              <div class="input-group">
+                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+              </div>
+            </div>
+          </div>
+          <!-- Categories widget-->
+          <div class="card mb-4">
+            <div class="card-header">Categories</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul class="list-unstyled mb-0">
+                    <li><a href="#!">Web Design</a></li>
+                    <li><a href="#!">HTML</a></li>
+                    <li><a href="#!">Freebies</a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <ul class="list-unstyled mb-0">
+                    <li><a href="#!">JavaScript</a></li>
+                    <li><a href="#!">CSS</a></li>
+                    <li><a href="#!">Tutorials</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Side widget-->
+          <div class="card mb-4">
+            <div class="card-header">Side Widget</div>
+            <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- Footer-->
+
+</body>
+</html>

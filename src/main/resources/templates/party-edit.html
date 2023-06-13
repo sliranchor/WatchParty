@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Club Create</title>
+</head>
+<body>
+<main class="flex-shrink-0">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+      <a class="navbar-brand" href="index.html">Watch Party!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome!</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+              <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
+              <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
+              <li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>
+              <li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Content-->
+  <section layout:fragment="body" class="py-5">
+      <form role="form" method="post" th:action="@{/parties/{partyId}/edit(partyId=${party.id})}" th:object="${party}">
+        <input type="hidden" th:field="*{id}">
+      <div class="container">
+        <div class="form-row">
+          <div class="form-group col-md6">
+            <label for="name">Title</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    th:field="*{name}"
+                    placeholder="Name for Party">
+            <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="imageUrl">Photo URL</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="imageUrl"
+                    name="imageUrl"
+                    th:field="*{imageUrl}"
+                    placeholder="URL for a Cover Photo">
+            <p th:if="${#fields.hasErrors('imageUrl')}" class="text-danger" th:errors="*{imageUrl}"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    th:field="*{description}"
+                    placeholder="Describe What Movies You'll be watching">
+            <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </section>
+
+</main>
+<!-- Footer-->
+
+</body>
+</html>
