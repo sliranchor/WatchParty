@@ -7,6 +7,7 @@ import com.letswatch.watchparty.repository.RoleRepository;
 import com.letswatch.watchparty.repository.UserRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -17,17 +18,20 @@ public class UserServicesImplementation implements UserServices {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServicesImplementation(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServicesImplementation(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void saveUser(UserDto userDto){
         UserEntity user = new UserEntity();
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         Role role = roleRepository.findByName("USER");
         user.setRoles(Arrays.asList(role));

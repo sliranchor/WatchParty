@@ -2,8 +2,12 @@ package com.letswatch.watchparty.services.implementations;
 
 import com.letswatch.watchparty.dto.PartyDto;
 import com.letswatch.watchparty.models.Party;
+import com.letswatch.watchparty.models.UserEntity;
 import com.letswatch.watchparty.repository.PartyRepository;
+import com.letswatch.watchparty.repository.UserRepository;
+import com.letswatch.watchparty.security.PageSecurity;
 import com.letswatch.watchparty.services.PartyServices;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +21,11 @@ import static com.letswatch.watchparty.mapper.PartyMapper.maptoPartyDto;
 public class PartyServiceImplementation implements PartyServices {
 
     private PartyRepository partyRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public PartyServiceImplementation(PartyRepository partyRepository){
+    public PartyServiceImplementation(PartyRepository partyRepository, UserRepository userRepository){
+        this.userRepository = userRepository;
         this.partyRepository = partyRepository;
     }
 
@@ -34,7 +40,10 @@ public class PartyServiceImplementation implements PartyServices {
 
     @Override
     public Party saveParty(PartyDto partyDto) {
+        String userName = PageSecurity.getUserSession();
+        UserEntity user = userRepository.findByUsername(userName);
         Party party = maptoParty(partyDto);
+        party.setCreatedBy(user);
         return partyRepository.save(party);
     }
 
@@ -47,7 +56,10 @@ public class PartyServiceImplementation implements PartyServices {
 
     @Override
     public void updateParty(PartyDto partyDto) {
+        String userName = PageSecurity.getUserSession();
+        UserEntity user = userRepository.findByUsername(userName);
         Party party = maptoParty(partyDto);
+        party.setCreatedBy(user);
         partyRepository.save(party);
     }
 

@@ -33,7 +33,9 @@ public class Party {
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime lastUpdatedOn;
-
+    @ManyToOne
+    @JoinColumn(name = "createdBy", nullable = false)
+    private UserEntity createdBy;
     @OneToMany(mappedBy = "party", cascade = CascadeType.REMOVE)
     private List<Event> events = new ArrayList<>();
 

@@ -33,11 +33,11 @@ public class RegistrationController {
                            Model model, BindingResult result){
         UserEntity ifEmailUsed = userServices.findByEmail(user.getEmail());
         if(ifEmailUsed != null && ifEmailUsed.getEmail() != null && !ifEmailUsed.getEmail().isEmpty()){
-            result.rejectValue("email", "Email/Username already in use!");
+            return "redirect:/register?fail";
         }
         UserEntity ifUserNameUsed = userServices.findByUsername(user.getUsername());
         if(ifUserNameUsed != null && ifUserNameUsed.getEmail() != null && !ifUserNameUsed.getEmail().isEmpty()){
-            result.rejectValue("email", "Email/Username already in use!");
+            return "redirect:/register?fail";
         }
         if(result.hasErrors()){
             model.addAttribute("user", user);
@@ -47,4 +47,10 @@ public class RegistrationController {
         return "redirect:/parties?success";
 
     }
+
+    @GetMapping("/login")
+    public String loginUser(){
+        return "login";
+    }
+
 }

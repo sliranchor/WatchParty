@@ -16,6 +16,7 @@ public class PartyMapper {
                 .description(party.getDescription())
                 .imageUrl(party.getImageUrl())
                 .createdOn(party.getCreatedOn())
+                .createdBy(party.getUser())
                 .lastUpdatedOn(party.getLastUpdatedOn())
                 .build();
         return partyDto;
@@ -28,6 +29,7 @@ public class PartyMapper {
                 .description((party.getDescription()))
                 .imageUrl(party.getImageUrl())
                 .createdOn(party.getCreatedOn())
+                .user(party.getCreatedBy())
                 .lastUpdatedOn(party.getLastUpdatedOn())
                 .events(party.getEvents().stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList()))
                 .build();

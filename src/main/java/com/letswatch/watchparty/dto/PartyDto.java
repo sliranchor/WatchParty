@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.letswatch.watchparty.models.Event;
+import com.letswatch.watchparty.models.UserEntity;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class PartyDto {
     private String description;
     @NotEmpty(message = "Please add an image for your Party")
     private String imageUrl;
+    private UserEntity user;
     private LocalDateTime createdOn;
     private LocalDateTime lastUpdatedOn;
     private List<EventDto> events;
