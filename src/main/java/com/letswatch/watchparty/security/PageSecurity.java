@@ -1,17 +1,19 @@
 package com.letswatch.watchparty.security;
 
-import com.letswatch.watchparty.models.UserEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class PageSecurity {
     public static String getUserSession(){
-        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if((authentication instanceof UserEntity)) {
-            String currentUserUsername = ((UserEntity)authentication).getUsername();
+        if(!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserUsername = authentication.getName();
+            System.out.println(authentication);
+            System.out.println(currentUserUsername);
             return currentUserUsername;
+
         }
         return null;
     }

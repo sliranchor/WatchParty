@@ -2,7 +2,10 @@ package com.letswatch.watchparty.controller;
 
 import com.letswatch.watchparty.dto.PartyDto;
 import com.letswatch.watchparty.models.Party;
+import com.letswatch.watchparty.models.UserEntity;
+import com.letswatch.watchparty.security.PageSecurity;
 import com.letswatch.watchparty.services.PartyServices;
+import com.letswatch.watchparty.services.UserServices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,12 @@ import java.util.List;
 @Controller
 public class PartyController {
     private PartyServices partyServices;
+    private UserServices userServices;
 
     @Autowired
-    public PartyController(PartyServices partyServices){
+    public PartyController(PartyServices partyServices, UserServices userServices){
         this.partyServices = partyServices;
+        this.userServices = userServices;
     }
 
     /*
@@ -26,7 +31,14 @@ public class PartyController {
      */
     @GetMapping("/parties")
     public String listParties(Model model){
+        UserEntity user = new UserEntity();
         List<PartyDto> parties = partyServices.findAllParties();
+        String email = PageSecurity.getUserSession();
+        if(email != null){
+            user= userServices.findByEmail(email);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("parties", parties);
         return "parties-list";
     }
@@ -96,7 +108,14 @@ public class PartyController {
      */
     @GetMapping("/parties/{partyId}")
     public String partyDetails(@PathVariable("partyId") long partyId, Model model){
+        UserEntity user = new UserEntity();
         PartyDto partyDto = partyServices.findPartyById(partyId);
+        String email = PageSecurity.getUserSession();
+        if(email != null){
+            user= userServices.findByEmail(email);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("party", partyDto);
         return "party-detail";
 

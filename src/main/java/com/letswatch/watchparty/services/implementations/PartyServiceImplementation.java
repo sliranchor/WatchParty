@@ -41,7 +41,7 @@ public class PartyServiceImplementation implements PartyServices {
     @Override
     public Party saveParty(PartyDto partyDto) {
         String userName = PageSecurity.getUserSession();
-        UserEntity user = userRepository.findByUsername(userName);
+        UserEntity user = userRepository.findByEmail(userName);
         Party party = maptoParty(partyDto);
         party.setCreatedBy(user);
         return partyRepository.save(party);
@@ -57,7 +57,7 @@ public class PartyServiceImplementation implements PartyServices {
     @Override
     public void updateParty(PartyDto partyDto) {
         String userName = PageSecurity.getUserSession();
-        UserEntity user = userRepository.findByUsername(userName);
+        UserEntity user = userRepository.findByEmail(userName);
         Party party = maptoParty(partyDto);
         party.setCreatedBy(user);
         partyRepository.save(party);

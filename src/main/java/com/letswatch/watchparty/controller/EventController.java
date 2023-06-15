@@ -1,7 +1,10 @@
 package com.letswatch.watchparty.controller;
 
 import com.letswatch.watchparty.dto.PartyDto;
+import com.letswatch.watchparty.models.UserEntity;
+import com.letswatch.watchparty.security.PageSecurity;
 import com.letswatch.watchparty.services.EventServices;
+import com.letswatch.watchparty.services.UserServices;
 import jakarta.validation.Valid;
 import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Controller;
@@ -20,9 +23,11 @@ import java.util.List;
 public class EventController {
 
     private EventServices eventServices;
+    private UserServices userServices;
 
-    public EventController(EventServices eventServices){
+    public EventController(EventServices eventServices, UserServices userServices){
         this.eventServices = eventServices;
+        this.userServices = userServices;
     }
 
     @GetMapping("/events/{partyId}/new")
@@ -46,14 +51,29 @@ public class EventController {
 
     @GetMapping("/events")
     public String allEvents(Model model){
+        UserEntity user = new UserEntity();
         List<EventDto> events = eventServices.listAllEvents();
+        String email = PageSecurity.getUserSession();
+        if(email != null){
+            user = userServices.findByEmail(email);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("events", events);
         return "events-list";
     }
 
     @GetMapping("/events/{eventId}")
     public String eventDetails(@PathVariable("eventId") Long eventId, Model model){
+        UserEntity user = new UserEntity();
         EventDto eventDto = eventServices.findEventById(eventId);
+        String email = PageSecurity.getUserSession();
+        if(email != null){
+            user = userServices.findByEmail(email);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("party", eventDto);
+        model.addAttribute("user", user);
         model.addAttribute("event", eventDto);
         return "event-details";
     }

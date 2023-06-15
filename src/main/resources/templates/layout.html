@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns: th="http://thymelead.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -18,15 +19,15 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/parties}">Find Your Party</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/events}">Find Watch Parties</a></li>
-                <li class="nav-item"><a class="nav-link" href="pricing.html">Directory</a></li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" th:href="@{/register}">Register</a></li>
 
-                <li class="nav-item dropdown">
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                        <li><a class="dropdown-item" th:href="@{/register}">Register</a></li>
-                        <li><a class="dropdown-item" th:href="@{/login}">Sign In</a></li>
-                        <li><a class="dropdown-item" th:href="@{/logout}">Log Out</a></li>
-                        <li><a class="dropdown-item" th:href="@{parties/new}">Create New Party</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">LogOut</a></li>
+
+                        <li><a class="dropdown-item" th:href="@{/parties/new}">Create New Party</a></li>
                     </ul>
                 </li>
 

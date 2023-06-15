@@ -31,7 +31,9 @@
 
                     </div>
                     <a class="btn btn-primary" th:href="@{/parties/{partyId}(partyId=${party.id})}">Details</a>
+                    <div th:if = "${user.email} == ${party.user.email}">
                     <a class="btn btn-primary" th:href="@{/parties/{partyId}/edit(partyId=${party.id})}">Edit</a>
+                    </div>
                 </div>
             </div>
         </div>
